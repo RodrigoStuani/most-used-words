@@ -20,6 +20,7 @@
 </template>
 
 <script>
+//const { ipcRenderer } = window.require('electron')
 import Pill from './Pill'
 
 export default {
@@ -38,6 +39,9 @@ export default {
   methods: {
     processSubtitles() {
       console.log(this.files);
+
+      //ipcRenderer.send('testeIPC', 'ping')
+      //ipcRenderer.on('testeIPC', (event, resp) => { console.log(resp) })
     }
   } 
 }
@@ -49,5 +53,4 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
   }
-
 </style>
