@@ -10,17 +10,24 @@
         chips 
         v-model="files"
         @click:append-outer="processSubtitles"
-        />
+      />
     </v-form>
     <div class="pills">
       <Pill v-for="word in groupedWords" :key="word.name"
-        :name="word.name" :amount="word.amount"/>
+        :name="word.name" :amount="word.amount"
+      />
     </div>
   </v-container>  
 </template>
 
 <script>
-//const { ipcRenderer } = window.require('electron')
+/**
+ * Alterado para renderizar pelo processo do webpack que ao criar ou reagir no backend
+ * na execução do ambiente nodejs.
+ * 
+ * se for pelo import atual do es6 não renderiza, somente com windows e required com electron.
+ */
+const electron = window.require('electron') 
 import Pill from './Pill'
 
 export default {
@@ -40,8 +47,8 @@ export default {
     processSubtitles() {
       console.log(this.files);
 
-      //ipcRenderer.send('testeIPC', 'ping')
-      //ipcRenderer.on('testeIPC', (event, resp) => { console.log(resp) })
+      electron.ipcRenderer.send('testeIPC', 'ping')
+      electron.ipcRenderer.on('testeIPC', (event, resp) => { console.log(resp) })
     }
   } 
 }
