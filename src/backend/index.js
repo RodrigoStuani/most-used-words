@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+const { ipcMain } = require('electron')
 
 ipcMain.on('testeIPC', (event, arg) => {
   console.log(arg)
