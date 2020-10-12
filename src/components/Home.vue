@@ -35,20 +35,16 @@ export default {
   data: function () {
     return {
       files: [],
-      groupedWords: [
-        { name: 'you', amount: 1234 },
-        { name: 'I', amount: 952 },
-        { name: 'what', amount: 756 },
-        { name: 'do', amount: 856 },
-      ]
+      groupedWords: []
     }
   },
   methods: {
     processSubtitles() {
-      console.log(this.files);
-
-      electron.ipcRenderer.send('testeIPC', 'ping')
-      electron.ipcRenderer.on('testeIPC', (event, resp) => { console.log(resp) })
+      const paths = this.files.map(f => f.path)
+      electron.ipcRenderer.send('process-subtitles', paths)
+      electron.ipcRenderer.on('process-subtitles', (event, resp) => { 
+        this.groupedWords = resp
+      })
     }
   } 
 }
